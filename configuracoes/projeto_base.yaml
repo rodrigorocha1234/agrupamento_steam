@@ -1,0 +1,188 @@
+projeto:
+  nome: steam_reviews_clustering
+  idioma: brazilian
+  seed: 42
+steam:
+  endpoint: https://api.steampowered.com/IUserReviewsService/GetAppReviews/v1/
+  jogos:
+  - appid: 427520
+    nome: Factorio
+    ativo: true
+  - appid: 526870
+    nome: Satisfactory
+    ativo: true
+  - appid: 1366540
+    nome: Dyson Sphere Program
+    ativo: true
+  coleta:
+    filtro: recent
+    tipo_review: all
+    tipo_compra: all
+    idiomas:
+    - brazilian
+    avaliacoes_por_pagina: 100
+    maximo_avaliacoes_por_jogo: 10000
+    intervalo_dias: 365
+    excluir_offtopic: true
+    timeout_segundos: 25
+    tentativas_maximas: 5
+    atraso_inicial_segundos: 1.0
+qualidade:
+  percentual_invalidos_maximo: 10
+  percentual_duplicados_maximo: 5
+experimentos:
+  experiencia:
+    ativo: true
+    incluir_voted_up: false
+  engajamento:
+    ativo: true
+    incluir_voted_up: false
+  combinado:
+    ativo: true
+    incluir_voted_up: false
+  conjuntos:
+  - individual
+  - conjunto
+preprocessamento:
+  transformacoes_numericas:
+  - nenhuma
+  - log1p
+  escalonadores:
+  - StandardScaler
+  - MinMaxScaler
+  - RobustScaler
+  - PowerTransformer
+  codificador_categorico: OneHotEncoder
+reducao_dimensionalidade:
+  opcoes:
+  - sem_pca
+  - 2
+  - 3
+  - 0.95
+modelos:
+  kmeans:
+    ativo: true
+    n_clusters:
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    n_init:
+    - 10
+    - 20
+  minibatch_kmeans:
+    ativo: true
+    n_clusters:
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    batch_size:
+    - 256
+    - 1024
+  agglomerative:
+    ativo: true
+    n_clusters:
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+  dbscan:
+    ativo: true
+    eps:
+    - 0.2
+    - 0.5
+    - 0.8
+    - 1.0
+    min_samples:
+    - 5
+    - 10
+    - 15
+  hdbscan:
+    ativo: true
+    min_cluster_size:
+    - 20
+    - 50
+    - 100
+    min_samples:
+    - 5
+    - 10
+    - 20
+avaliacao:
+  metricas:
+  - silhouette
+  - davies_bouldin
+  - calinski_harabasz
+  - ari
+  - nmi
+  - cobertura
+  estabilidade_repeticoes: 5
+observabilidade:
+  grafana:
+    provisionar: true
+    dashboards:
+    - geral
+    - steam_api
+    - engenharia_dados
+    - qualidade
+    - machine_learning
+    - clustering
+    - distribuicao
+    - infraestrutura
+    - logs
+    - drift
+  prometheus:
+    ativo: true
+    quantis:
+    - 0.5
+    - 0.95
+    - 0.99
+  loki:
+    ativo: true
+    logs_json: true
+  alertas:
+    taxa_erros_http_pct: 5
+    latencia_p95_segundos: 2
+    memoria_pct: 85
+    cpu_pct: 90
+motor_agrupamento:
+  engine: sklearn
+  opcoes_disponiveis:
+  - sklearn
+  - pycaret
+  algoritmo: kmeans
+  quantidade_clusters: 5
+  semente: 42
+  colunas_numericas:
+  - playtime_forever
+  - playtime_at_review
+  - playtime_last_two_weeks
+  - num_reviews
+  - votes_up
+  - votes_funny
+  - weighted_vote_score
+  - comment_count
+  colunas_categoricas:
+  - steam_purchase
+  - received_for_free
+  - written_during_early_access
+  sklearn:
+    n_init: 20
+    escalonador: robust
+  pycaret:
+    versao_api: 4
+    modelo_id: kmeans
+    parametros_modelo:
+      n_clusters: 5
+    log_experiment: false

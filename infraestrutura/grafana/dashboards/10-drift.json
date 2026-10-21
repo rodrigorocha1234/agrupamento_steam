@@ -1,0 +1,40 @@
+{
+  "id": null,
+  "uid": "10-drift",
+  "title": "Steam Reviews | Drift",
+  "schemaVersion": 40,
+  "version": 1,
+  "refresh": "30s",
+  "timezone": "browser",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "ml_feature_drift_score",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "expr": "ml_feature_drift_score",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "steam",
+    "observabilidade",
+    "prototipo"
+  ],
+  "annotations": {
+    "list": []
+  }
+}

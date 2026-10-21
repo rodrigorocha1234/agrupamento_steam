@@ -1,0 +1,14 @@
+mlflow:
+  nome_modelo: agrupamento_steam_kmeans
+  experimento_demo: demonstracao_steam_sintetica
+  alias_producao: champion
+modelo:
+  quantidade_clusters: 3
+  semente: 42
+atributos:
+  numericos: [horas_jogadas, votos_uteis]
+  categoricos: [recebido_gratis]
+serving:
+  porta: 8080
+  implementacao: mlflow_nativo
+  fastapi: false

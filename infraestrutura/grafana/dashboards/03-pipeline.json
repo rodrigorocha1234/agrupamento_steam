@@ -1,0 +1,40 @@
+{
+  "id": null,
+  "uid": "03-pipeline",
+  "title": "Steam Reviews | Pipeline Bronze Silver Gold",
+  "schemaVersion": 40,
+  "version": 1,
+  "refresh": "30s",
+  "timezone": "browser",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "sum(rate(pipeline_stage_errors_total[5m]))",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(pipeline_stage_errors_total[5m]))",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "steam",
+    "observabilidade",
+    "prototipo"
+  ],
+  "annotations": {
+    "list": []
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": null,
+  "uid": "04-qualidade",
+  "title": "Steam Reviews | Qualidade dos dados",
+  "schemaVersion": 40,
+  "version": 1,
+  "refresh": "30s",
+  "timezone": "browser",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "sum(data_invalid_records_total)",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "expr": "sum(data_invalid_records_total)",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "steam",
+    "observabilidade",
+    "prototipo"
+  ],
+  "annotations": {
+    "list": []
+  }
+}

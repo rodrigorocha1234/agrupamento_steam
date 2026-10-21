@@ -1,0 +1,40 @@
+{
+  "id": null,
+  "uid": "08-infra",
+  "title": "Steam Reviews | Infraestrutura",
+  "schemaVersion": 40,
+  "version": 1,
+  "refresh": "30s",
+  "timezone": "browser",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "process_resident_memory_bytes",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "steam",
+    "observabilidade",
+    "prototipo"
+  ],
+  "annotations": {
+    "list": []
+  }
+}
