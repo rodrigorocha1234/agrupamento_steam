@@ -1,2 +1,0 @@
-# Dashboards — estado inicial
-Dez dashboards JSON provisionados; **alguns painéis ficam vazios até os agentes implementarem os exporters**. As expressões PromQL são pontos de partida, não verificação de coleta real. Próxima tarefa obrigatória: instrumentar métricas, validar tipos/counters, definir exporters CPU/memória e implementar alertas conforme thresholds YAML. Loki é datasource, mas consultas LogQL detalhadas ficam para o agente de observabilidade. MLflow experimentos não estão automaticamente integrados ao Grafana.

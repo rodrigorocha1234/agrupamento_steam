@@ -1,18 +1,15 @@
-# Contrato principal — Steam Reviews Brasil
+# Steam Reviews Clustering — instruções principais
 
-Atue como equipe multidisciplinar descrita em `.agents/agents.md`; respeite `specs/`, `.agents/rules/` e as regras originais em `docs/regras-python-originais.txt`.
+Projeto Python 3.12+ de clustering **sem PLN** para reviews Steam em português brasileiro; idioma `brazilian` não prova residência no Brasil. Siga as specs e regras versionadas em `.agents/specs/` e `.agents/rules/`.
 
-**Ordem obrigatória:** Product Manager → Arquitetura → Engenharia de Dados → Engenharia de ML → Validação/QA → Observabilidade/DevOps → revisão humana. Cada etapa produz artefatos revisáveis em `production_artifacts/` e não avança em decisões estruturais sem aprovação explícita do usuário.
+## Governança
+- Antes de qualquer alteração, ler `README.md`, `.agents/specs/00-visao-geral.md`, specs da área e rules relevantes, além dos documentos de referência em `docs/fontes/`.
+- Preservar integralmente requisitos, registrar discrepâncias e solicitar aprovação da especificação antes de alterar infraestrutura, API pública, persistência ou publicar modelos.
+- A equipe é descrita em `.agents/agents/`; delegar tarefas especializadas aos subagentes disponíveis na superfície usada, sem pressupor que todos os IDEs permitem `invoke_subagent`.
+- Nunca iniciar Docker Compose alternativo: identificar `compose.yaml`/`docker-compose.yml` existente e reutilizar rede, serviços e volumes; sem arquivo acessível, bloquear alterações de infraestrutura e solicitar sua inspeção no workspace.
+- Não armazenar resultados analíticos ou modelos de modo persistente local: Data Lake MinIO e artefatos MLflow. Arquivos de trabalho e specs são versionados no repositório.
+- Nunca afirmar que métrica, endpoint, execução, validação ou dashboard funciona sem teste/evidência.
 
-Objetivo: comparar perfis de reviews em idioma `brazilian` da Steam, para múltiplos `appid`, **sem PLN**. Unidade = review, não jogador único. Estudos: por jogo, conjunto e comparação por jogo. Nunca reportar simulações como dados reais.
-
-Requisitos: Python 3.12+, estrita tipagem sem `Any`, nomes próprios em português, pacotes/módulos próprios duas palavras separadas por `_` (exceto nomes impostos), uma classe principal por arquivo, Pandas vetorizado, YAML para configurações mutáveis, SOLID e padrões somente quando agregarem valor, testes e observabilidade completa Grafana.
-
-Para fluxos novos use Agent Skills com `SKILL.md`; workflows legados estão descontinuados. Antes de escrever código, propor plano, critérios de aceitação e riscos. Não apagar arquivos existentes ou publicar serviços externos sem aprovação. O protótipo em `app/` é apenas ponto de partida.
-
-**Ampliação obrigatória:** SPEC 06 (MLflow serving nativo, sem FastAPI), SPEC 07 (motor genérico desacoplado de Steam) e Rule 07. Skill `/serving` para registro/promoção/inferência.
-
-**Etapa API:** API Engineer implementa `specs/08-fastapi.md` com gate QA antes da exposição externa. FastAPI é o serviço HTTP padrão; o MLflow Serving nativo fica disponível como alternativa em `profiles: [serving]`.
-
-
-Antes de modificar algoritmos, ler `specs/09-selecao-engine.md` e `.agents/rules/09-engines.md`. Usar skill `engines`.
+## Sequência sugerida
+@pm → aprovação humana → @arquiteto_ml + @engenheiro_dados → @engenheiro_ml + @engenheiro_api + @observabilidade → @qa → aprovação de publicação → @devops.
+Os nomes @ são **papéis descritivos**, não comandos nativos garantidos. Para executar, solicitar delegação ao subagente identificado ou usar skills (`/planejar-steam`, `/implementar-steam`, `/auditar-steam`).

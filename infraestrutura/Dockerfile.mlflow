@@ -1,6 +1,0 @@
-FROM ghcr.io/mlflow/mlflow:v3.4.0
-RUN pip install --no-cache-dir psycopg2-binary boto3 'scikit-learn>=1.5' 'pandas>=2.2' 'PyYAML>=6'
-WORKDIR /workspace
-COPY app /workspace/app
-COPY configuracoes /workspace/configuracoes
-ENV PYTHONPATH=/workspace
